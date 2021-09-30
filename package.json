@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "description": "Fast and small scripting language for quick input process output",
   "files": [
     "dist",
     "LICENSE"
