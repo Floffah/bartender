@@ -1,0 +1,6 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "typedoc",
+  "name": "Bartender",
+  "gitRemote": "origin"
+}

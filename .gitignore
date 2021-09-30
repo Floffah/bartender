@@ -1,5 +1,6 @@
 # lang should be generated via `yarn grammar`
 src/lang/lang.ts
+typedoc
 
 # Created by https://www.toptal.com/developers/gitignore/api/yarn,node,webstorm,jetbrains
 # Edit at https://www.toptal.com/developers/gitignore?templates=yarn,node,webstorm,jetbrains
