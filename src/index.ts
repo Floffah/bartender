@@ -1,4 +1,4 @@
 import grammar, { lexerRules } from "./lang/lang";
 
 export { grammar, lexerRules };
-export * from "./context/context";
+export * from "./context/Context";
