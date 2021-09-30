@@ -1,0 +1,38 @@
+{
+  "name": "@floffah/bartender",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "repository": "https://github.com/Floffah/esbuild-plugin-d.ts.git",
+  "author": "Floffah <therealfloffah@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/moo": "^0.5.5",
+    "@types/nearley": "^2.11.2",
+    "@types/node": "^15.12.4",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "npm-check-updates": "^11.7.1",
+    "prettier": "^2.3.1",
+    "tsup": "^4.11.2",
+    "typescript": "^4.3.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "prepare": "yarn grammar && yarn tsup --minify",
+    "grammar": "yarn nearleyc src/lang/lang.ne -o src/lang/lang.ts",
+    "dev": "yarn tsup --watch"
+  },
+  "dependencies": {
+    "moo": "^0.5.1",
+    "nearley": "^2.20.1"
+  }
+}
