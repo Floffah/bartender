@@ -33,4 +33,14 @@ export class Context {
         if (!(name in this.contextValues)) return undefined; // might as well tbh
         return this.contextValues[name];
     }
+
+    removeValues(...names: (keyof typeof Context.prototype.contextValues)[]) {
+        const copy = { ...this.contextValues };
+
+        for (const name of names) {
+            delete copy[name];
+        }
+
+        this.contextValues = copy;
+    }
 }
