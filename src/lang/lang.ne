@@ -21,16 +21,25 @@ export const lexerRules: Rules = {
     string: {
         match: /["'].+["']/,
         lineBreaks: false,
-        value: v => v.slice(1, -1)
+        value: v => v.slice(1, -1),
     },
+    plaintext: {
+        match: /[/s/S]+/,
+        lineBreaks: true,
+    },
+    curlybraces: ["{", "}"],
 }
 %}
 
 @lexer lexer
 
+@include "./tag.ne"
+
 Prog -> Main:+ {% d => ({ type: "Main", body: d[0] }) %}
 
-Main -> %ws {% nuller %}
+Main -> Tag {% id %}
+    | %plaintext {% d => ({ type: "Plaintext", value: d[0] }) %}
+    | %ws {% nuller %}
 
 @{%
 export const lexer = compile({
