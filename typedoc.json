@@ -3,5 +3,6 @@
   "out": "typedoc",
   "name": "Bartender",
   "gitRemote": "origin",
-  "excludePrivate": true
+  "excludePrivate": true,
+  "excludeNotDocumented": true
 }

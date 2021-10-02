@@ -8,23 +8,23 @@
     "dist",
     "LICENSE"
   ],
-  "repository": "https://github.com/Floffah/esbuild-plugin-d.ts.git",
+  "repository": "https://github.com/Floffah/bartender.git",
   "author": "Floffah <therealfloffah@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/moo": "^0.5.5",
     "@types/nearley": "^2.11.2",
-    "@types/node": "^15.12.4",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "eslint": "^7.29.0",
+    "@types/node": "^16.10.2",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "npm-check-updates": "^11.7.1",
-    "prettier": "^2.3.1",
+    "npm-check-updates": "^11.8.5",
+    "prettier": "^2.4.1",
     "ts-node": "^10.2.1",
-    "tsup": "^4.11.2",
+    "tsup": "^5.2.1",
     "typedoc": "0.22.4",
-    "typescript": "^4.3.4"
+    "typescript": "^4.4.3"
   },
   "engines": {
     "node": ">=12.0.0"

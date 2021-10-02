@@ -18,6 +18,10 @@ export const lexerRules: Rules = {
         match: /[A-z0-9_$]+/,
         lineBreaks: false,
     },
+    extraword: {
+        match: /[A-z0-9_$.]+/,
+        lineBreaks: false,
+    },
     string: {
         match: /["'].+["']/,
         lineBreaks: false,
