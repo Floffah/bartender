@@ -1,11 +1,11 @@
-/**
- * A class that manages when a bit of code being run.
- */
 import { Context } from "src/context/Context";
 import { Runtime } from "src/runtime/Runtime";
 import { Parser } from "nearley";
 import { AST } from "src/ast";
 
+/**
+ * A class that manages when a bit of code being run.
+ */
 export class Run {
     private context: Context;
     private runtime: Runtime;
