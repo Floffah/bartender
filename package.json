@@ -22,6 +22,7 @@
     "eslint-config-prettier": "^8.3.0",
     "npm-check-updates": "^11.8.5",
     "prettier": "^2.4.1",
+    "source-map-support": "^0.5.20",
     "ts-node": "^10.2.1",
     "tsup": "^5.2.1",
     "typedoc": "0.22.4",
@@ -35,7 +36,8 @@
     "grammar": "yarn nearleyc src/lang/lang.ne -o src/lang/lang.ts",
     "dev": "yarn tsup --watch",
     "docs": "yarn typedoc",
-    "test": "yarn ts-node test/index.ts"
+    "test": "yarn ts-node --project ./tsconfig.json --transpile-only test/index.ts",
+    "fulltest": "yarn prepare && yarn test"
   },
   "dependencies": {
     "moo": "^0.5.1",

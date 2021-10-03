@@ -32,6 +32,7 @@ export const lexerRules: Rules = {
         lineBreaks: true,
     },
     curlybraces: ["{", "}"],
+    following: [":"],
 }
 %}
 

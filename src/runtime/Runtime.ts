@@ -25,10 +25,21 @@ export class Runtime {
     commonParser?: Parser;
 
     /**
-     * Instantiate a new runtime based on a certain context or context values.
-     * @param context The context/values to assign.
+     * Instantiate a new runtime based on a certain context.
+     * @param context The context to assign.
      * @param opts Optional runtime options.
      */
+    static from(context: Context, opts?: RuntimeOpts): Runtime;
+
+    /**
+     * Instantiate a new runtime based on certain context values.
+     * @param context The values to assign.
+     * @param opts Optional runtime options.
+     */
+    static from(context: ContextValues, opts?: RuntimeOpts): Runtime;
+
+    // these are separated to fix typing errors
+
     static from(context: Context | ContextValues, opts?: RuntimeOpts) {
         const runtime = new Runtime(opts);
         runtime.context =

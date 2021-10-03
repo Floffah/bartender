@@ -1,0 +1,6 @@
+{
+    set a, 1;
+    set b, 2;
+    set result, a + b;
+    print "a + b = ", { result }
+}
