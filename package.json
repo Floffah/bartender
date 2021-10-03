@@ -37,7 +37,7 @@
     "dev": "yarn tsup --watch",
     "docs": "yarn typedoc",
     "test": "yarn ts-node --project ./tsconfig.json --transpile-only test/index.ts",
-    "fulltest": "yarn prepare && yarn test"
+    "fulltest": "yarn prepare && yarn test --all"
   },
   "dependencies": {
     "moo": "^0.5.1",

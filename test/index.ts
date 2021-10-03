@@ -22,7 +22,7 @@ const runtime = Runtime.from(base);
     let continuing = true;
 
     for (const test of Object.keys(tests)) {
-        if (continuing) {
+        if (continuing || process.argv.includes("--all")) {
             console.log(chalk`{blue ⋯ ${test}}`);
             try {
                 await runtime.run(tests[test]);

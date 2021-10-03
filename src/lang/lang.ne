@@ -14,6 +14,10 @@ export const lexerRules: Rules = {
         match: /[0-9]+/,
         lineBreaks: false,
     },
+    decimal: {
+        match: /[0-9]+\.[0-9]+/,
+        lineBreaks: false,
+    },
     word: {
         match: /[A-z0-9_$]+/,
         lineBreaks: false,
@@ -33,6 +37,8 @@ export const lexerRules: Rules = {
     },
     curlybraces: ["{", "}"],
     following: [":"],
+    separator: [","],
+    operator: ["+", "-", "/", "*"]
 }
 %}
 
