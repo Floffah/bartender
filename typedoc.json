@@ -1,10 +1,10 @@
 {
-    "entryPoints": [
-        "src/index.ts"
-    ],
-    "out": "typedoc",
-    "name": "Bartender",
-    "gitRemote": "origin",
-    "excludePrivate": true,
-    "excludeNotDocumented": true
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "typedoc",
+  "name": "Bartender",
+  "gitRemote": "origin",
+  "excludePrivate": true,
+  "excludeNotDocumented": true
 }
