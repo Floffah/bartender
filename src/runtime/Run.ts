@@ -1,7 +1,7 @@
-import { Context } from "src/context/Context";
-import { Runtime } from "src/runtime/Runtime";
+import { Context } from "../context/Context";
+import { Runtime } from "../runtime/Runtime";
 import { Parser } from "nearley";
-import { AST } from "src/ast";
+import { AST } from "../ast";
 
 /**
  * A class that manages when a bit of code being run.

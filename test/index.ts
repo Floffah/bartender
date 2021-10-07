@@ -1,7 +1,7 @@
 import "source-map-support/register";
 import { readFileSync } from "fs";
 import { resolve } from "path";
-import { Runtime, Context } from "..";
+import { Context, Runtime } from "..";
 import chalk from "chalk";
 
 const base = new Context();
@@ -24,13 +24,17 @@ const runtime = Runtime.from(base);
     for (const test of Object.keys(tests)) {
         if (continuing || process.argv.includes("--all")) {
             console.log(chalk`{blue ⋯ ${test}}`);
+            const start = Date.now();
             try {
                 await runtime.run(tests[test]);
-                console.log(chalk`    {green ✓ succeeded}`);
+                const time = Date.now() - start;
+                if (time >= 100)
+                    console.log(chalk`    {yellow ! Took more than 100ms}`);
+                console.log(chalk`    {green ✓ succeeded in ${time}ms}`);
             } catch (e) {
                 console.log(chalk`    {red ⨯ failed}`);
                 console.log(
-                    e.stack
+                    (e.stack as string)
                         .split("\n")
                         .map((s) => chalk`        {red ${s}}`)
                         .join("\n"),
