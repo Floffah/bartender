@@ -1,47 +1,47 @@
 {
-  "name": "@floffah/bartender",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "description": "Fast and small scripting language for quick input process output",
-  "files": [
-    "dist",
-    "LICENSE"
-  ],
-  "repository": "https://github.com/Floffah/bartender.git",
-  "author": "Floffah <therealfloffah@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/moo": "^0.5.5",
-    "@types/nearley": "^2.11.2",
-    "@types/node": "^16.10.3",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "chalk": "^4.1.2",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "npm-check-updates": "^11.8.5",
-    "prettier": "^2.4.1",
-    "source-map-support": "^0.5.20",
-    "ts-node": "^10.2.1",
-    "tsup": "^5.4.0",
-    "typedoc": "0.22.5",
-    "typescript": "^4.4.3"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "scripts": {
-    "prepare": "yarn grammar && yarn tsup --minify",
-    "grammar": "yarn nearleyc src/lang/lang.ne -o src/lang/lang.ts",
-    "dev": "yarn tsup --watch",
-    "docs": "yarn typedoc",
-    "test": "yarn ts-node --project ./tsconfig.json --transpile-only test/index.ts",
-    "fulltest": "yarn prepare && yarn test --all"
-  },
-  "dependencies": {
-    "moo": "^0.5.1",
-    "nearley": "^2.20.1"
-  },
-  "packageManager": "yarn@3.0.2"
+    "name": "@floffah/bartender",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "description": "Fast and small scripting language for quick input process output",
+    "files": [
+        "dist",
+        "LICENSE"
+    ],
+    "repository": "https://github.com/Floffah/bartender.git",
+    "author": "Floffah <therealfloffah@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/moo": "^0.5.5",
+        "@types/nearley": "^2.11.2",
+        "@types/node": "^16.10.3",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "@typescript-eslint/parser": "^4.33.0",
+        "chalk": "^4.1.2",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "npm-check-updates": "^11.8.5",
+        "prettier": "^2.4.1",
+        "source-map-support": "^0.5.20",
+        "ts-node": "^10.2.1",
+        "tsup": "^5.4.0",
+        "typedoc": "0.22.5",
+        "typescript": "^4.4.3"
+    },
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "scripts": {
+        "prepare": "yarn grammar && yarn tsup --minify",
+        "grammar": "yarn nearleyc src/lang/lang.ne -o src/lang/lang.ts",
+        "dev": "yarn tsup --watch",
+        "docs": "yarn typedoc",
+        "test": "yarn ts-node --project ./tsconfig.json --transpile-only test/index.ts",
+        "fulltest": "yarn prepare && yarn test --all"
+    },
+    "dependencies": {
+        "moo": "^0.5.1",
+        "nearley": "^2.20.1"
+    },
+    "packageManager": "yarn@3.0.2"
 }
