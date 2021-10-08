@@ -1,0 +1,13 @@
+enabled: true
+include:
+  - "src/**/*"
+statuses:
+  differences: true
+  no_differences: true
+  error: false
+request_review: owner
+ignore_labels:
+  - no-styles
+restylers:
+  - prettier
+  - jq
