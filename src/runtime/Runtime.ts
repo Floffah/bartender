@@ -18,7 +18,7 @@ export interface RuntimeOpts {
  * A "runtime" class that acts as a bridge between the context and runs, and a manager for runs.
  */
 export class Runtime {
-    private context: Context;
+    context: Context;
     opts?: RuntimeOpts;
 
     grammar = Grammar.fromCompiled(grammar);
@@ -68,17 +68,9 @@ export class Runtime {
         }
     }
 
-    /**
-     * A function used to modify a context after it has already been assigned to a runtime.
-     * @param fn Function to modify the context. Must return the same context.
-     */
-    modify(fn: (c: Context) => Context) {
-        this.context = fn(this.context ?? new Context());
-    }
-
     async run(code: string) {
         const run = Run.from(this, this.context);
 
-        await run.start(code);
+        return await run.start(code);
     }
 }

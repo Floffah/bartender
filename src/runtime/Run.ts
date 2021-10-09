@@ -2,13 +2,14 @@ import { Context } from "src/context/Context";
 import { Runtime } from "src/runtime/Runtime";
 import { Parser } from "nearley";
 import { AST } from "src/ast";
+import { Process } from "./Process";
 
 /**
  * A class that manages when a bit of code being run.
  */
 export class Run {
-    private context: Context;
-    private runtime: Runtime;
+    context: Context;
+    runtime: Runtime;
 
     parserOutput: AST;
 
@@ -35,6 +36,7 @@ export class Run {
 
         parser.feed(code);
         this.parserOutput = parser.finish() as AST;
-        this.context; // temporarily fix errors
+
+        return Process.execute(this.parserOutput, this);
     }
 }
