@@ -14,7 +14,7 @@ export class Process {
         let finalText = "";
         
         for(const part of ast) {
-            if(typeof part !== "string" && part.type === "Main") {
+            if(part !== null && part.type === "Main") {
                 for(const mainpart of part.body) {
                     if(mainpart.type === "Plaintext") {
                         finalText += mainpart.value.value;

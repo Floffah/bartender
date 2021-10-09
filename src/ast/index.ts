@@ -1,7 +1,7 @@
 import { Token } from "moo";
 import { Tag } from "./tags";
 
-export type AST = (Main|string)[];
+export type AST = (Main|null)[];
 
 export interface Main {
     type: "Main",
