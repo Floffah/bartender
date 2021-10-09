@@ -37,6 +37,6 @@ export class Run {
         parser.feed(code);
         this.parserOutput = parser.finish() as AST;
 
-        return Process.execute(this.parserOutput, this);
+        return await Process.execute(this.parserOutput, this);
     }
 }

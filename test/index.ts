@@ -1,7 +1,7 @@
 import "source-map-support/register";
-import { readFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { Runtime, Context } from "..";
+import { Runtime, Context, Run } from "..";
 import chalk from "chalk";
 
 const base = new Context();
@@ -18,6 +18,10 @@ const tests: { [k: string]: string } = {
 };
 const runtime = Runtime.from(base);
 
+const outdir = resolve(__dirname, "outs");
+
+if (!existsSync(outdir)) mkdirSync(outdir);
+
 (async () => {
     let continuing = true;
 
@@ -25,7 +29,13 @@ const runtime = Runtime.from(base);
         if (continuing || process.argv.includes("--all")) {
             console.log(chalk`{blue ⋯ ${test}}`);
             try {
-                await runtime.run(tests[test]);
+                // await runtime.run(tests[test]);
+                const run = Run.from(runtime, runtime.context);
+                await run.start(tests[test]);
+                writeFileSync(
+                    resolve(outdir, `${test}.parsed.json`),
+                    JSON.stringify(run.parserOutput, null, 4),
+                );
                 console.log(chalk`    {green ✓ succeeded}`);
             } catch (e) {
                 console.log(chalk`    {red ⨯ failed}`);
