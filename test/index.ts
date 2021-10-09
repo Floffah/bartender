@@ -28,6 +28,7 @@ if (!existsSync(outdir)) mkdirSync(outdir);
     for (const test of Object.keys(tests)) {
         if (continuing || process.argv.includes("--all")) {
             console.log(chalk`{blue ⋯ ${test}}`);
+            const start = Date.now();
             try {
                 // await runtime.run(tests[test]);
                 const run = Run.from(runtime, runtime.context);
@@ -40,7 +41,7 @@ if (!existsSync(outdir)) mkdirSync(outdir);
             } catch (e) {
                 console.log(chalk`    {red ⨯ failed}`);
                 console.log(
-                    e.stack
+                    (e.stack as string)
                         .split("\n")
                         .map((s) => chalk`        {red ${s}}`)
                         .join("\n"),
