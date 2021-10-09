@@ -34,7 +34,7 @@ if (!existsSync(outdir)) mkdirSync(outdir);
                 await run.start(tests[test]);
                 writeFileSync(
                     resolve(outdir, `${test}.parsed.json`),
-                    JSON.stringify(run.parserOutput, null, 4),
+                    JSON.stringify(run.parserOutput, null, 2), // 2 instead of 4 because these trees to DEEP
                 );
                 console.log(chalk`    {green ✓ succeeded}`);
             } catch (e) {
