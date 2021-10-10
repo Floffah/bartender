@@ -12,11 +12,11 @@ export class Process {
 
     async execute(ast: AST) {
         let finalText = "";
-        
-        for(const part of ast) {
-            if(part !== null && part.type === "Main") {
-                for(const mainpart of part.body) {
-                    if(mainpart.type === "Plaintext") {
+
+        for (const part of ast) {
+            if (part !== null && part.type === "Main") {
+                for (const mainpart of part.body) {
+                    if (mainpart !== null && mainpart.type === "Plaintext") {
                         finalText += mainpart.value.value;
                     }
                 }

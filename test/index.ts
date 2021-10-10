@@ -37,7 +37,9 @@ if (!existsSync(outdir)) mkdirSync(outdir);
                     resolve(outdir, `${test}.parsed.json`),
                     JSON.stringify(run.parserOutput, null, 2), // 2 instead of 4 because these trees to DEEP
                 );
-                console.log(chalk`    {green ✓ succeeded}`);
+                console.log(
+                    chalk`    {green ✓ succeeded in ${Date.now() - start}ms}`,
+                );
             } catch (e) {
                 console.log(chalk`    {red ⨯ failed}`);
                 console.log(
