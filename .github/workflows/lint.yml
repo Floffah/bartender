@@ -1,0 +1,17 @@
+name: Lint
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - name: Install modules
+      run: yarn
+    - name: Prepare
+      run: yarn prepare
+    - name: Run ESLint
+      run: yarn eslint src/** -c ./.eslintrc.js --ext ".tsx,.ts" --ignore-path .eslintignore --ignore-pattern *.ne

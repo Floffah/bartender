@@ -1,7 +1,7 @@
-import { Context, ContextValues } from "src/context/Context";
-import { Run } from "src/runtime/Run";
 import { Grammar, Parser } from "nearley";
-import grammar from "src/lang/lang";
+import grammar from "../lang/lang";
+import { Context, ContextValues } from "../context/Context";
+import { Run } from "./Run";
 
 /**
  * Runtime options.
@@ -18,7 +18,7 @@ export interface RuntimeOpts {
  * A "runtime" class that acts as a bridge between the context and runs, and a manager for runs.
  */
 export class Runtime {
-    private context: Context;
+    context: Context;
     opts?: RuntimeOpts;
 
     grammar = Grammar.fromCompiled(grammar);
@@ -69,16 +69,12 @@ export class Runtime {
     }
 
     /**
-     * A function used to modify a context after it has already been assigned to a runtime.
-     * @param fn Function to modify the context. Must return the same context.
+     * Run a snippet of code and get the text output.
+     * @param code The code to run.
      */
-    modify(fn: (c: Context) => Context) {
-        this.context = fn(this.context ?? new Context());
-    }
-
     async run(code: string) {
         const run = Run.from(this, this.context);
 
-        await run.start(code);
+        return await run.start(code);
     }
 }

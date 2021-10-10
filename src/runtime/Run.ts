@@ -1,14 +1,15 @@
-import { Context } from "src/context/Context";
-import { Runtime } from "src/runtime/Runtime";
+import { Context } from "../context/Context";
+import { Runtime } from "./Runtime";
 import { Parser } from "nearley";
-import { AST } from "src/ast";
+import { AST } from "../ast";
+import { Process } from "./Process";
 
 /**
  * A class that manages when a bit of code being run.
  */
 export class Run {
-    private context: Context;
-    private runtime: Runtime;
+    context: Context;
+    runtime: Runtime;
 
     parserOutput: AST;
 
@@ -24,6 +25,11 @@ export class Run {
         return run;
     }
 
+    /**
+     * Start the run using a snippet of code.
+     * @param code The snipped of code the run should use.
+     * @returns string The text output from {@link Process#execute}
+     */
     async start(code: string) {
         let parser: Parser;
 
@@ -35,6 +41,7 @@ export class Run {
 
         parser.feed(code);
         this.parserOutput = parser.finish() as AST;
-        this.context; // temporarily fix errors
+
+        return await Process.execute(this.parserOutput, code, this);
     }
 }

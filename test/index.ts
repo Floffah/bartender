@@ -1,7 +1,7 @@
 import "source-map-support/register";
-import { readFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { Runtime, Context } from "..";
+import { Runtime, Context, Run } from "..";
 import chalk from "chalk";
 
 const base = new Context();
@@ -18,19 +18,32 @@ const tests: { [k: string]: string } = {
 };
 const runtime = Runtime.from(base);
 
+const outdir = resolve(__dirname, "outs");
+
+if (!existsSync(outdir)) mkdirSync(outdir);
+
 (async () => {
     let continuing = true;
 
     for (const test of Object.keys(tests)) {
         if (continuing || process.argv.includes("--all")) {
             console.log(chalk`{blue ⋯ ${test}}`);
+            const start = Date.now();
             try {
-                await runtime.run(tests[test]);
-                console.log(chalk`    {green ✓ succeeded}`);
+                // await runtime.run(tests[test]);
+                const run = Run.from(runtime, runtime.context);
+                await run.start(tests[test]);
+                writeFileSync(
+                    resolve(outdir, `${test}.parsed.json`),
+                    JSON.stringify(run.parserOutput, null, 2), // 2 instead of 4 because these trees go DEEP
+                );
+                console.log(
+                    chalk`    {green ✓ succeeded in ${Date.now() - start}ms}`,
+                );
             } catch (e) {
                 console.log(chalk`    {red ⨯ failed}`);
                 console.log(
-                    e.stack
+                    (e.stack as string)
                         .split("\n")
                         .map((s) => chalk`        {red ${s}}`)
                         .join("\n"),
