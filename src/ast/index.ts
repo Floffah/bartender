@@ -10,7 +10,13 @@ export type AST = (Main | null)[];
  * This is a container object that contains all of a scripts content.
  */
 export interface Main {
+    /**
+     * Object type
+     */
     type: "Main";
+    /**
+     * Script body
+     */
     body: ScriptBody[];
 }
 
@@ -23,7 +29,13 @@ export type ScriptBody = Tag | Plaintext | null;
  * Object that represents literal text the user wrote in the script.
  */
 export interface Plaintext {
+    /**
+     * Object type
+     */
     type: "Plaintext";
+    /**
+     * The string value as a lexer token.
+     */
     value: Token;
 }
 
