@@ -12,4 +12,4 @@ jobs:
     - name: Install modules
       run: yarn
     - name: Run ESLint
-      run: yarn eslint ./src --ext .ts,.tsx
+      run: yarn eslint src/** -c ./.eslintrc.js --ext ".tsx,.ts" --ignore-path .eslintignore --ignore-pattern *.ne
