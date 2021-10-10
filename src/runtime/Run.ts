@@ -25,6 +25,11 @@ export class Run {
         return run;
     }
 
+    /**
+     * Start the run using a snippet of code.
+     * @param code The snipped of code the run should use.
+     * @returns string The text output from {@link Process#execute}
+     */
     async start(code: string) {
         let parser: Parser;
 

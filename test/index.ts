@@ -35,7 +35,7 @@ if (!existsSync(outdir)) mkdirSync(outdir);
                 await run.start(tests[test]);
                 writeFileSync(
                     resolve(outdir, `${test}.parsed.json`),
-                    JSON.stringify(run.parserOutput, null, 2), // 2 instead of 4 because these trees to DEEP
+                    JSON.stringify(run.parserOutput, null, 2), // 2 instead of 4 because these trees go DEEP
                 );
                 console.log(
                     chalk`    {green ✓ succeeded in ${Date.now() - start}ms}`,

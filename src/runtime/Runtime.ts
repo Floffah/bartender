@@ -68,6 +68,10 @@ export class Runtime {
         }
     }
 
+    /**
+     * Run a snippet of code and get the text output.
+     * @param code The code to run.
+     */
     async run(code: string) {
         const run = Run.from(this, this.context);
 
