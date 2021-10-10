@@ -1,7 +1,7 @@
 @preprocessor typescript
 
 @{%
-import { compile, Rules } from "moo";
+import { compile, Rules, Token } from "moo";
 
 export const nuller = () => null;
 

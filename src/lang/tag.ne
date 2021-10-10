@@ -2,7 +2,19 @@
 
 @include "./values.ne"
 
-Tag -> "{" %ws:? (%word|%extraword):+ OptionalTagParams:? %ws:? "}" {% d => ({ type: "Tag", reference: d[2].map((w: any) => Array.isArray(w) ? w[0].value : w.value).join(""), ...(d[3] ?? {}) }) %}
+Tag -> "{" %ws:? (%word|%extraword):+ OptionalTagParams:? %ws:? "}" {% d => {
+    const referenceTokens = d[2].map((w: Token|Token[]) => Array.isArray(w) ? w[0] : w);
+
+    return {
+        type: "Tag",
+        reference: referenceTokens.map((v: Token) => v.value).join(""),
+        referenceLoc: {
+            line: referenceTokens[0].line,
+            col: referenceTokens[0].col,
+        },
+        ...(d[3] ?? {}),
+    }
+} %}
 
 OptionalTagParams -> ":":? %ws value ExtraTagParams:* {% d => ({ params: [d[2], ...(d[3] ?? [])] }) %}
 

@@ -13,6 +13,13 @@ export interface Tag {
      */
     reference: string;
     /**
+     * The location of the reference name
+     */
+    referenceLoc: {
+        line: number;
+        col: number;
+    };
+    /**
      * The tags parameters if its a call based tag.
      */
     params?: TagParam[];

@@ -1,10 +1,29 @@
 import { Token } from "moo";
-import { Tag } from ".";
+import { Tag } from "./tags";
 
 /**
- * A type that represents all types of values.
+ * An object that contains all value types
  */
-export type Value = LiteralReferenceValue | NumberValue | Operation | Tag;
+export interface Value {
+    /**
+     * Object type
+     */
+    type: "Value";
+    /**
+     * The value that represent this value. if people really hate it working like this, by all means submit a pr to change it, its as simple as making the grammar an id and changing a level of ifs
+     */
+    value: ValueTypes;
+}
+
+/**
+ * All types of values
+ */
+export type ValueTypes =
+    | LiteralReferenceValue
+    | NumberValue
+    | StringValue
+    | Operation
+    | Tag;
 
 /**
  * A value that represents a literal reference to a context or runtime variable.
@@ -55,7 +74,11 @@ export interface Operation {
     /**
      * Object type
      */
-    type:
+    type: "Operation";
+    /**
+     * The type of operation
+     */
+    operationType:
         | "AdditionOperation"
         | "SubtractionOperation"
         | "DivisionOperation"

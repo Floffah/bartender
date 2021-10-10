@@ -1,5 +1,5 @@
 import { Context } from "../context/Context";
-import { Runtime } from "../runtime/Runtime";
+import { Runtime } from "./Runtime";
 import { Parser } from "nearley";
 import { AST } from "../ast";
 import { Process } from "./Process";
@@ -42,6 +42,6 @@ export class Run {
         parser.feed(code);
         this.parserOutput = parser.finish() as AST;
 
-        return await Process.execute(this.parserOutput, this);
+        return await Process.execute(this.parserOutput, code, this);
     }
 }

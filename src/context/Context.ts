@@ -1,10 +1,18 @@
+import { Process } from "../runtime/Process";
+import { Tag } from "../ast";
+
 /**
  * A type alias for context values.
  */
 export type ContextValues = Record<
     string,
-    string | number | boolean | ((...args: any[]) => any)
+    string | number | boolean | ContextFn
 >;
+
+/**
+ * A type alias for a context function
+ */
+export type ContextFn = (process: Process, tag: Tag, ...args: any[]) => any;
 
 /**
  * A class used to provide functions and global variables to runtimes and runs.
