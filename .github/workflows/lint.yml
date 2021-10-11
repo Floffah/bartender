@@ -14,4 +14,4 @@ jobs:
     - name: Prepare
       run: yarn prepare
     - name: Run ESLint
-      run: yarn eslint src/** -c ./.eslintrc.js --ext ".tsx,.ts" --ignore-path .eslintignore --ignore-pattern *.ne
+      run: yarn eslint . -c ./.eslintrc.js --ext ".tsx,.ts" --ignore-path .eslintignore --ignore-pattern *.ne
