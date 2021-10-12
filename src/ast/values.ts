@@ -36,7 +36,7 @@ export interface LiteralReferenceValue {
     /**
      * The referenced value as a lexer token
      */
-    value: Token;
+    name: Token;
 }
 
 /**

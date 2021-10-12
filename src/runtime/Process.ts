@@ -40,9 +40,9 @@ export class Process {
         let finalText = "";
 
         for (const part of ast) {
-            if (part !== null && part.type === "Main") {
+            if (part && part.type === "Main") {
                 for (const mainpart of part.body) {
-                    if (mainpart === null) continue;
+                    if (!mainpart) continue;
                     if (mainpart.type === "Plaintext") {
                         finalText += mainpart.value.value;
                     } else if (mainpart.type === "Tag") {
@@ -63,7 +63,7 @@ export class Process {
             const params: any[] = [];
 
             for (const param of tag.params) {
-                if (param.type === "Value")
+                if (param && param.type === "Value")
                     params.push(await this.astValueToValue(param));
             }
 
@@ -75,7 +75,7 @@ export class Process {
         if (value.value.type === "NumberValue")
             return parseInt(value.value.value.map((v) => v.value).join(""));
         else if (value.value.type === "LiteralReferenceValue") {
-            const name = value.value.value.value;
+            const name = value.value.name.value;
             const found =
                 this.variables[name] ??
                 this.run.context.getValue(name) ??
@@ -83,9 +83,10 @@ export class Process {
             if (!found)
                 throw new ScriptError(
                     `Could not find referencable value ${name}`,
-                    value.value.value,
+                    value.value.name,
                     this.processingRaw,
                 );
+            return found;
         } else if (value.value.type === "Operation") {
             const left: any = await this.astValueToValue(value.value.left);
             const right: any = await this.astValueToValue(value.value.right);
@@ -120,11 +121,12 @@ export class Process {
     }
 
     findValueLocation(value: Value): { col: number; line: number } {
-        if (value.value.type === "Operation") {
+        if (value.value.type === "Operation")
             return this.findValueLocation(value.value.left);
-        } else if (value.value.type === "Tag") {
-            return value.value.referenceLoc;
-        } else {
+        else if (value.value.type === "Tag") return value.value.referenceLoc;
+        else if (value.value.type === "LiteralReferenceValue")
+            return value.value.name;
+        else {
             const val = value.value.value;
             if (Array.isArray(val)) return val[0];
             else return val;
@@ -155,7 +157,8 @@ export class Process {
         token?: typeof ScriptError.prototype.token,
     ) {
         const ref = this.variables[name] ?? this.run.context.getValue(name);
-        if (!nullable && !ref) {
+        if (!nullable && (typeof ref === "undefined" || ref === null)) {
+            // may be NaN
             const errmsg = `${name} could not be resolved is not nullable`;
             throw token
                 ? new ScriptError(errmsg, token, this.processingRaw)
