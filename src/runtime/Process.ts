@@ -1,7 +1,12 @@
 import { Run } from "./Run";
 import { AST, Tag, Value } from "../ast";
-import { ContextFn } from "../context/Context";
 import { ScriptError } from "../util/ScriptError";
+import {
+    ContextFn,
+    ContextFnContext,
+    ContextFunctionValidation,
+} from "../context/types";
+import { humanizeContextValidationParam } from "../context/util";
 
 /**
  * Class used by {@see Run} to run parsed code and get the output text.
@@ -61,13 +66,24 @@ export class Process {
         } else {
             const fn = this.getFunction(tag.reference, tag.referenceLoc);
             const params: any[] = [];
+            const validationParams: [Value, any][] = [];
 
             for (const param of tag.params) {
-                if (param && param.type === "Value")
-                    params.push(await this.astValueToValue(param));
+                if (param && param.type === "Value") {
+                    const converted = await this.astValueToValue(param);
+                    params.push(converted);
+                    validationParams.push([param, converted]);
+                }
             }
 
-            return fn(this, tag, ...params);
+            return fn(
+                {
+                    process: this,
+                    tag,
+                    validate: this.getValidationFunction(validationParams, tag),
+                },
+                ...params,
+            );
         }
     }
 
@@ -131,6 +147,136 @@ export class Process {
             if (Array.isArray(val)) return val[0];
             else return val;
         }
+    }
+
+    getValidationFunction(
+        foundParams: [Value, any][],
+        tag: Tag,
+    ): ContextFnContext["validate"] {
+        return (validation, allowInvalid = false) => {
+            const foundInvalid = (
+                invalid: [Value, any] | undefined,
+                v: ContextFunctionValidation,
+                optional: boolean,
+                customMessage?: string,
+            ) => {
+                if (!allowInvalid) {
+                    throw new ScriptError(
+                        customMessage ??
+                            `Expected${
+                                optional ? " (optional)" : ""
+                            } type ${humanizeContextValidationParam(v)} but ${
+                                invalid
+                                    ? `got ${invalid[1]}`
+                                    : `nothing was passed`
+                            }`,
+                        invalid
+                            ? this.findValueLocation(invalid[0])
+                            : tag.referenceLoc,
+                        this.processingRaw,
+                    );
+                }
+                return false;
+            };
+
+            for (let i = 0; i < validation.length; i++) {
+                const v = validation[i];
+                const rawparam = foundParams[i];
+                let optional = false;
+
+                if (typeof v !== "string" && "optional" in v) {
+                    if (typeof v.optional === "string") optional = true;
+                    else optional = !!v.optional;
+                }
+
+                if (v && !optional && !rawparam)
+                    return foundInvalid(
+                        undefined,
+                        v,
+                        optional,
+                        `Param at index ${i} of type ${humanizeContextValidationParam(
+                            v,
+                        )} is not optional`,
+                    );
+
+                const [value, param] = rawparam;
+
+                if (typeof v === "string") {
+                    if (v !== "any" && typeof param !== v)
+                        return foundInvalid([value, param], v, optional);
+                } else if ("optional" in v) {
+                    if (
+                        typeof v.optional === "string" &&
+                        v.optional !== "any" &&
+                        typeof param !== v.optional
+                    )
+                        return foundInvalid([value, param], v, optional);
+                } else if ("array" in v) {
+                    if (!Array.isArray(param))
+                        return foundInvalid(
+                            [value, param],
+                            v,
+                            optional,
+                            `Expected array of type ${humanizeContextValidationParam(
+                                v,
+                            )} but instead got ${param}`,
+                        );
+
+                    const hasInvalid =
+                        v.array === "any"
+                            ? false
+                            : param.some((p) => typeof p !== v.array);
+
+                    if (hasInvalid)
+                        return foundInvalid([value, param], v, optional);
+                } else if ("union" in v) {
+                    if (v.union.includes("any")) continue;
+                    if (v.arrayOf) {
+                        if (!Array.isArray(param))
+                            return foundInvalid([value, param], v, optional);
+                        const hasInvalid = param.some(
+                            (p) => !v.union.includes(typeof p),
+                        );
+                        if (hasInvalid)
+                            return foundInvalid([value, param], v, optional);
+                    } else if (
+                        Array.isArray(param) ||
+                        !v.union.includes(typeof param)
+                    )
+                        return foundInvalid([value, param], v, optional);
+                } else if ("tuple" in v) {
+                    if (!Array.isArray(param))
+                        return foundInvalid([value, param], v, optional);
+
+                    for (let ei = 0; ei < v.tuple.length; ei++) {
+                        const expected = v.tuple[ei];
+                        if (expected === "any") continue;
+                        if (!param[ei])
+                            return foundInvalid(
+                                [value, param],
+                                v,
+                                optional,
+                                `Expected value at index ${ei} of tuple ${humanizeContextValidationParam(
+                                    v,
+                                )} but got nothing`,
+                            );
+                        else if (typeof param[ei] !== expected)
+                            return foundInvalid(
+                                [value, param],
+                                v,
+                                optional,
+                                `Expected value of type ${humanizeContextValidationParam(
+                                    expected,
+                                )} at index ${ei} of tuple ${humanizeContextValidationParam(
+                                    v,
+                                )} but got ${param[ei]}`,
+                            );
+                    }
+                }
+            }
+
+            return true;
+        };
     }
 
     getFunction(

@@ -3,22 +3,22 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { Context, Run, Runtime } from "..";
 import chalk from "chalk";
+import { variables } from "../src/context/defaults/common/variables";
 
 const base = new Context();
 
 base.addValues({
     version: "1.2.3",
-    set: (proc, _tag, name: string, val: any) => {
-        proc.variables[name] = val;
-        return val;
-    },
-    print: (_proc, _tag, ...args: any[]) => {
+    ...variables,
+    print: (_ctx, ...args: any[]) => {
         console.log(...args);
     },
-    index: (_proc, _tag, number: number, array: any[]) => {
+    index: (ctx, number: number, array: any[]) => {
+        ctx.validate(["number", { array: "any" }]);
         return array[number];
     },
-    "string.split": (_proc, _tag, string: string, splitter: string) => {
+    "string.split": (ctx, string: string, splitter: string) => {
+        ctx.validate(["string", "string"]);
         return string.split(splitter);
     },
 });
