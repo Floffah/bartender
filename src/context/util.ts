@@ -2,9 +2,9 @@ import { ContextFunctionValidation, ContextValues, DeepContext } from "./types";
 
 /**
  * Flattens a context where values may sit in recursive objects into a single object where values are always a context value or function
- * @param deep
+ * @param deep The value to flatten
  */
-export function flattenDeepContext(deep: DeepContext): ContextValues {
+export function flattenDeepRecursiveContext(deep: DeepContext): ContextValues {
     const context: ContextValues = {};
 
     for (const key of Object.keys(deep)) {
@@ -15,12 +15,31 @@ export function flattenDeepContext(deep: DeepContext): ContextValues {
             typeof v !== "boolean" &&
             typeof v !== "function"
         ) {
-            const deeper = flattenDeepContext(v);
+            const deeper = flattenDeepRecursiveContext(v);
 
             for (const deeperkey of Object.keys(deeper)) {
                 context[`${key}.${deeperkey}`] = deeper[deeperkey];
             }
         } else context[key] = v;
+    }
+
+    return context;
+}
+
+/**
+ * The same as {@link flattenDeepRecursiveContext} except the passed value must be an object of keys whos values are a context values object.
+ * @param deep The value to flatten
+ */
+export function flattenDeepSimpleContext(
+    deep: Record<string, ContextValues>,
+): ContextValues {
+    const context: any = {};
+
+    for (const rootkey of Object.keys(deep)) {
+        const rootval = deep[rootkey];
+        for (const subkey of Object.keys(rootval)) {
+            context[`${rootkey}.${subkey}`] = rootval[subkey];
+        }
     }
 
     return context;

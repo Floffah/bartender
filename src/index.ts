@@ -9,3 +9,4 @@ export * from "./runtime/Process";
 export * from "./runtime/Run";
 export * from "./runtime/Runtime";
 export * from "./util/ScriptError";
+export * from "./context/defaults/index";

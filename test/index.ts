@@ -3,24 +3,13 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { Context, Run, Runtime } from "..";
 import chalk from "chalk";
-import { variables } from "../src/context/defaults/variables";
+import { allDefaults } from "../src";
 
 const base = new Context();
 
 base.addValues({
     version: "1.2.3",
-    ...variables,
-    print: (_ctx, ...args: any[]) => {
-        console.log(...args);
-    },
-    index: (ctx, number: number, array: any[]) => {
-        ctx.validate(["number", { array: "any" }]);
-        return array[number];
-    },
-    "string.split": (ctx, string: string, splitter: string) => {
-        ctx.validate(["string", "string"]);
-        return string.split(splitter);
-    },
+    ...allDefaults,
 });
 
 const testFile = (name: string) =>
