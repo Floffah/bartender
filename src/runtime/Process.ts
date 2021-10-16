@@ -60,6 +60,10 @@ export class Process {
         return finalText;
     }
 
+    /**
+     * Process and execute a tag
+     * @param tag The tag to execute
+     */
     async process(tag: Tag) {
         if (!tag.params) {
             return this.getVariable(tag.reference, false, tag.referenceLoc);
@@ -87,6 +91,10 @@ export class Process {
         }
     }
 
+    /**
+     * Gets the literal value from an AST value
+     * @param value The AST value to convert
+     */
     async astValueToValue(value: Value) {
         if (value.value.type === "NumberValue")
             return parseInt(value.value.value.map((v) => v.value).join(""));
@@ -136,6 +144,10 @@ export class Process {
         } else return value.value.value.value;
     }
 
+    /**
+     * Finds the location of the value in the string being currently processed
+     * @param value The value to find
+     */
     findValueLocation(value: Value): { col: number; line: number } {
         if (value.value.type === "Operation")
             return this.findValueLocation(value.value.left);
@@ -149,6 +161,11 @@ export class Process {
         }
     }
 
+    /**
+     * Creates the {@link ContextFnContext.validate} function from a tag and params resolved
+     * @param foundParams Array of ast values and literal values
+     * @param tag The tag in reference
+     */
     getValidationFunction(
         foundParams: [Value, any][],
         tag: Tag,
@@ -279,6 +296,11 @@ export class Process {
         };
     }
 
+    /**
+     * Get a function from the context or process
+     * @param name The name of the function
+     * @param token The token that initiated this fetch
+     */
     getFunction(
         name: string,
         token?: typeof ScriptError.prototype.token,
@@ -297,6 +319,12 @@ export class Process {
         return ref;
     }
 
+    /**
+     * Get a variable from the context or process
+     * @param name Variable name
+     * @param nullable If it is nullable, if false will throw an error
+     * @param token The token that initiated the fetch
+     */
     getVariable(
         name: string,
         nullable = false,

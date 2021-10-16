@@ -1,5 +1,8 @@
 import { Token } from "moo";
 
+/**
+ * A type of error that creates a helpful error message with information about where the error occurred
+ */
 export class ScriptError extends Error {
     message: string;
     token: Token | { line: number; col: number };

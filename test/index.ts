@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { Context, Run, Runtime } from "..";
 import chalk from "chalk";
-import { variables } from "../src/context/defaults/common/variables";
+import { variables } from "../src/context/defaults/variables";
 
 const base = new Context();
 

@@ -1,5 +1,9 @@
 import { ContextFunctionValidation, ContextValues, DeepContext } from "./types";
 
+/**
+ * Flattens a context where values may sit in recursive objects into a single object where values are always a context value or function
+ * @param deep
+ */
 export function flattenDeepContext(deep: DeepContext): ContextValues {
     const context: ContextValues = {};
 
@@ -22,6 +26,10 @@ export function flattenDeepContext(deep: DeepContext): ContextValues {
     return context;
 }
 
+/**
+ * Turns a validation param into a human readable string
+ * @param param
+ */
 export function humanizeContextValidationParam(
     param: ContextFunctionValidation,
 ): string {

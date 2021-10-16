@@ -2,7 +2,6 @@ import grammar, { lexerRules } from "./lang/lang";
 
 export { grammar, lexerRules };
 export * from "./ast/index";
-// export * from "./context/defaults/common/variables"
 export * from "./context/Context";
 export * from "./context/types";
 export * from "./context/util";
