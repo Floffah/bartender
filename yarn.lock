@@ -44,7 +44,7 @@ __metadata:
   dependencies:
     "@types/moo": ^0.5.5
     "@types/nearley": ^2.11.2
-    "@types/node": ^16.11.0
+    "@types/node": ^16.11.1
     "@typescript-eslint/eslint-plugin": ^5.0.0
     "@typescript-eslint/parser": ^5.0.0
     chalk: ^4.1.2
@@ -56,8 +56,8 @@ __metadata:
     prettier: ^2.4.1
     source-map-support: ^0.5.20
     ts-node: ^10.3.0
-    tsup: ^5.4.0
-    typedoc: 0.22.5
+    tsup: ^5.4.1
+    typedoc: 0.22.6
     typescript: ^4.4.4
   languageName: unknown
   linkType: soft
@@ -278,10 +278,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.0":
-  version: 16.11.0
-  resolution: "@types/node@npm:16.11.0"
-  checksum: 194ae80ec72f664e15e03c33f116be96aa1e85b167a19e31003c53ddfc36dabd65744e9a76c1d46b7ce2e5981d2ccb8e84a85c3ec9ac89f1471daaa885bdcfd0
+"@types/node@npm:^16.11.1":
+  version: 16.11.1
+  resolution: "@types/node@npm:16.11.1"
+  checksum: 22cea470b89292810733b8b9fc1b6a1873bc3ed4d4cdf2f25e777dc607994bd7c12e64166d1a66dd5924734192b0a891b6aeb6813aa935f731345f4086234375
   languageName: node
   linkType: hard
 
@@ -4052,9 +4052,9 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"tsup@npm:^5.4.0":
-  version: 5.4.0
-  resolution: "tsup@npm:5.4.0"
+"tsup@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "tsup@npm:5.4.1"
   dependencies:
     cac: ^6.7.2
     chalk: ^4.1.0
@@ -4077,7 +4077,7 @@ fsevents@~2.3.2:
   bin:
     tsup: dist/cli-default.js
     tsup-node: dist/cli-node.js
-  checksum: 889bf90fae8c7c4570298a4a91c30e62b98d052dc65119f7a785142f07422473ac86c7fb257b089cf9e75e2895f9cc10d8a45579fd910b251fa28e0dc46c3a1d
+  checksum: 6b860e915042b1e32e697eb9ec1b5bc1b2db295634c658161eb27363cf6ef14d2921549bee07a4292bbe7c0193e7972a51e05fdfaa2a06335def4c7c47e98019
   languageName: node
   linkType: hard
 
@@ -4133,9 +4133,9 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.22.5":
-  version: 0.22.5
-  resolution: "typedoc@npm:0.22.5"
+"typedoc@npm:0.22.6":
+  version: 0.22.6
+  resolution: "typedoc@npm:0.22.6"
   dependencies:
     glob: ^7.2.0
     lunr: ^2.3.9
@@ -4146,7 +4146,7 @@ fsevents@~2.3.2:
     typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
   bin:
     typedoc: bin/typedoc
-  checksum: 5b8a8e0e3b4c28370d51db724379f01ea83ae23e3d60a8e23ca669ee4a31f8e134d6f1f9e40ff56cb3c5c7cdc78a413aef5a0d6ec0d5fc1197882bfa631a0748
+  checksum: bdf099fffbe77bd173164ac9d3700ed88e4eb021ce402a255492065f6cbd03f8f420297743616791062f5d2c3e32b0fa061c52f360956f54306b3cd0719ec702
   languageName: node
   linkType: hard
 

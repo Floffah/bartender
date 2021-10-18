@@ -1,15 +1,11 @@
 import "source-map-support/register";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { Context, Run, Runtime } from "..";
+import { createFullContext, Run, Runtime } from "..";
 import chalk from "chalk";
-import { allDefaults } from "../src";
 
-const base = new Context();
-
-base.addValues({
+const base = createFullContext().addValues({
     version: "1.2.3",
-    ...allDefaults,
 });
 
 const testFile = (name: string) =>
