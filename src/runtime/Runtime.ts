@@ -1,7 +1,8 @@
 import { Grammar, Parser } from "nearley";
 import grammar from "../lang/lang";
-import { Context, ContextValues } from "../context/Context";
+import { Context } from "../context/Context";
 import { Run } from "./Run";
+import { ContextValues } from "../context/types";
 
 /**
  * Runtime options.

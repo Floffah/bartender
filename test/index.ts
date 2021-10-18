@@ -1,26 +1,11 @@
 import "source-map-support/register";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { Context, Run, Runtime } from "..";
+import { createFullContext, Run, Runtime } from "..";
 import chalk from "chalk";
 
-const base = new Context();
-
-base.addValues({
+const base = createFullContext().addValues({
     version: "1.2.3",
-    set: (proc, _tag, name: string, val: any) => {
-        proc.variables[name] = val;
-        return val;
-    },
-    print: (_proc, _tag, ...args: any[]) => {
-        console.log(...args);
-    },
-    index: (_proc, _tag, number: number, array: any[]) => {
-        return array[number];
-    },
-    "string.split": (_proc, _tag, string: string, splitter: string) => {
-        return string.split(splitter);
-    },
 });
 
 const testFile = (name: string) =>
